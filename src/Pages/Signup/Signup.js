@@ -3,27 +3,33 @@ import { Link, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../Contexts/AuthProvidor/AuthProvidor";
 
-const Login = () => {
-  const { signinuser } = useContext(AuthContext);
+const Signup = () => {
+  const { createUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    signinuser(email, password)
+    createUser(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
-        form.reset();
+        if (user) {
+          setError("");
+          form.reset();
+          navigate("/");
+        } else {
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
+        // ..
       });
   };
   return (
@@ -33,8 +39,20 @@ const Login = () => {
           <img className="w-3/4" src={img} alt="" />
         </div>
         <div className="card text-center flex-shrink-0 w-full max-w-sm shadow-2xl pb-20 pt-5">
-          <form onSubmit={handleLogin} className="card-body">
-            <h1 className="text-2xl text-center font-bold">Login</h1>
+          <form onSubmit={handleSignup} className="card-body">
+            <h1 className="text-2xl text-center font-bold">Sign Up</h1>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -55,8 +73,8 @@ const Login = () => {
                 className="input input-bordered"
                 type="password"
                 name="password"
-                id=""
                 required
+                id=""
               />
 
               <label className="label">
@@ -67,13 +85,17 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <p className="text-red-700 mb-5">{error}</p>
-              <input className="btn btn-primary" type="submit" value="Login" />
+              <input
+                className="btn btn-primary"
+                type="submit"
+                value="Sign Up"
+              />
             </div>
           </form>
           <p>
-            New in Genious Car ?{" "}
-            <Link className="text-orange-600" to={"/signup"}>
-              Sign Up
+            Already have an Account ?{" "}
+            <Link className="text-orange-600" to={"/login"}>
+              Login
             </Link>
           </p>
         </div>
@@ -82,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
