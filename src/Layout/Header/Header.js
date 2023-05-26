@@ -24,8 +24,6 @@ const Header = () => {
         <Link to={"/"}>Blog</Link>
         <Link to={"/"}>Service</Link>
         <Link to={"/"}>Contact</Link>
-        <Link to={"/login"}>Log In</Link>
-        <Link to={"/signup"}>Sign Up</Link>
       </li>
     </>
   );
@@ -63,10 +61,33 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{menuItem}</ul>
       </div>
       <div className="navbar-end">
-        <p>{user?.email}</p>
-        <button className="btn btn-outline btn-warning">Appointment</button>
-        <button onClick={handleSignout} className="btn btn-outline btn-warning">
-          Sign Out
+        {user?.email ? (
+          <>
+            <Link to={"/order"} className="btn btn-outline btn-warning ms-5">
+              Order
+            </Link>
+            <button
+              onClick={handleSignout}
+              className="btn btn-outline btn-warning ms-5 me-5"
+            >
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to={"/login"} className="btn btn-outline btn-warning ms-5">
+              Log In
+            </Link>
+            <Link
+              to={"/signup"}
+              className="btn btn-outline btn-warning ms-5 me-5"
+            >
+              Sign Up
+            </Link>
+          </>
+        )}
+        <button className="btn btn-outline btn-warning me-5">
+          Appointment
         </button>
       </div>
     </div>

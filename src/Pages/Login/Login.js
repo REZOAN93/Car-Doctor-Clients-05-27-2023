@@ -1,12 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../Contexts/AuthProvidor/AuthProvidor";
 
 const Login = () => {
   const { signinuser } = useContext(AuthContext);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = (event) => {
     event.preventDefault();

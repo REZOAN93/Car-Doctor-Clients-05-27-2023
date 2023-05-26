@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ServiceItem from "./ServiceItem";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const [service, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("service.json")
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -26,7 +27,7 @@ const Services = () => {
         ))}
       </div>
       <div className="text-center mt-8">
-      <button className="btn btn-outline btn-secondary">More Services</button>
+        <button className="btn btn-outline btn-secondary">More Services</button>
       </div>
     </div>
   );
